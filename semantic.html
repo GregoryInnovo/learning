@@ -8,18 +8,69 @@
     <title>Semantic</title>
 </head>
 
+<style>
+    * {
+        background-color: papayawhip;
+    }
+
+    li {
+        background-color: pink;
+    }
+
+    .titulo1 {
+        color: tomato;
+    }
+
+    #titulo2 {
+        color: violet;
+    }
+
+    a[href="https://platzi.com"] {
+        color: blue;
+    }
+
+    div p {
+        color: lime;
+    }
+
+    div + section {
+        background-color: royalblue;
+    }
+
+    div  ~ p {
+        color: powderblue;
+    }
+</style>
+
+
 <body>
-
-
-
     <header></header>
 
     <nav>
         <ul>
-            <li>about us</li>
-            <li>contact us</li>
+            <li class="titulo1">about us</li>
+            <li id="titulo2">contact us</li>
+            <li><a href="https://platzi.com">Platzi</a> </li>
         </ul>
     </nav>
+
+    <!-- Selector descendiente -->
+    <div>
+        <p>Platzi</p>
+        <p>Otro</p>
+    </div>
+
+    <!-- General Hermano -->
+    <p>Selectors class</p>
+
+    <!-- Selector adyacente -->
+    <section>
+        Works?
+    </section>
+    
+    <div>
+        <p>Master</p>
+    </div>
 
     <figure>
         <h1>Cute cat</h1>
