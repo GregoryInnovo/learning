@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("gh"),console.log(2+1)})();
