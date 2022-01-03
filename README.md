@@ -1,5 +1,5 @@
 # learning
 
-- mongo-api:
+- main: show all the examples
 
-  Here is a example AOI RESTFUL with mongodb
+- mongo-api: Example API RESTFUL with mongodb
