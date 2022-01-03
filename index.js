@@ -1,3 +1,4 @@
+require("dotenv").config();
 // configuración del API RESTful
 const express = require("express");
 const app = express();
@@ -5,7 +6,7 @@ const port = 3000;
 // configuración a la base de datos
 const MongoClient = require("mongodb").MongoClient;
 let ObjectId = require("mongodb").ObjectID;
-const uri = "URI";
+const uri = process.env.URI_CONNECTION;
 // Inicia la conexión a la base de datos
 MongoClient.connect(uri, { useUnifiedTopology: true })
   .then((client) => {
@@ -23,7 +24,7 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
         .then((sensors) => {
           res.status(200).send(sensors);
         })
-        .catch(error > console.error(error));
+        .catch((error) => console.error(error));
     });
     // Almacena un nuevo sensor
     app.post("/sensores", (req, res) => {
@@ -35,16 +36,17 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
           console.log(sensor);
           res.status(201).send(sensor);
         })
-        .catch(error > console.error(error));
+        .catch((error) => console.error(error));
     });
     // Retorna el sensor con el id pasado en el parámetro sensorId
     app.get("/sensores/:sensorId", (req, res) => {
       let sensorId = req.params.sensorId;
+      let query = { _id: new require("mongodb").ObjectID(sensorId) };
       database
         .collection("sensores")
-        .findOne({ _id: new ObjectId(sensorId) })
+        .findOne(query)
         .then((sensor) => {
-          if (null == sensor) {
+          if (null !== sensor) {
             res.status(200).send(sensor);
           } else {
             res.status(404).send(`El sensor con id: ${sensorId} no existe`);
@@ -65,7 +67,7 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
         .collection("sensores")
         .updateOne({ _id: new ObjectId(sensorId) }, updateSensor)
         .then((sensor) => {
-          if (null == sensor) {
+          if (null !== sensor) {
             console.log(sensor);
             res.status(201).send(measurement);
           } else {
@@ -81,4 +83,4 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
       console.log(`Servidor escuchando en el puerto: ${port}`);
     });
   })
-  .catch(error > console.error("Error al conectar a la base de datos"));
+  .catch((error) => console.error("Error al conectar a la base de datos"));
