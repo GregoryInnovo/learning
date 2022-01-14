@@ -1,5 +1,3 @@
-# learning
+# react-shop
 
-- main: show all the examples
-
-- mongo-api: Example API RESTFUL with mongodb
+- practice with react
