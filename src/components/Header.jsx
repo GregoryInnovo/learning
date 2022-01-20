@@ -7,6 +7,7 @@ import logo from '@logos/logo_yard_sale.svg';
 import AppContext from '@context/AppContext';
 import MyOrder from '@containers/MyOrder';
 import styles from '@styles/Header.module.scss';
+import Link from 'next/link';
 
 const Header = () => {
   const [toggle, setToggle] = useState(false);
@@ -21,7 +22,9 @@ const Header = () => {
     <nav className={styles.Nav}>
       <Image src={menu} alt="menu" className={styles.menu} />
       <div className={styles['navbar-left']}>
-        <Image src={logo} alt="logo" className={styles['nav-logo']} />
+        <Link href="/">
+          <Image src={logo} alt="logo" className={styles['nav-logo']} />
+        </Link>
         <ul>
           <li>
             <a href="/">All</a>

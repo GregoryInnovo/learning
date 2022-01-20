@@ -2,19 +2,18 @@ import React, { useContext } from 'react';
 import AppContext from '@context/AppContext';
 import iconsClose from '@icons/icon_close.png';
 import styles from '@styles/OrderItem.module.scss';
-
+import Image from 'next/image';
 const OrderItem = ({ product }) => {
-  const { title, price, images } = product;
   const { removeFromCart } = useContext(AppContext);
 
   return (
     <div className={styles.OrderItem}>
       <figure>
-        <img src={images[0]} alt={title} />
+        <Image src={product?.images[0]} width={240} height={240} alt={product?.title} />
       </figure>
-      <p>{title}</p>
-      <p>${price}</p>
-      <img src={iconsClose} alt="close icon" onClick={() => removeFromCart(product)} />
+      <p>{product?.title}</p>
+      <p>${product?.price}</p>
+      <Image src={iconsClose} alt="close icon" onClick={() => removeFromCart(product)} />
     </div>
   );
 };

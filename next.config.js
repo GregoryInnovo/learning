@@ -1,5 +1,8 @@
 module.exports = {
   reactStrictMode: true,
+  images: {
+    domains: ['placeimg.com'],
+  },
   // we can environments values to production
   /* env: {
     customKey: 'customValue',
