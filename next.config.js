@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   // we can environments values to production
-  env: {
+  /* env: {
     customKey: 'customValue',
   },
   // location of the project
@@ -15,5 +15,5 @@ module.exports = {
         permanent: true,
       },
     ];
-  },
+  }, */
 };

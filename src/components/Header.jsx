@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
-import '@styles/Header.scss';
 import Menu from '@components/Menu';
 import menu from '@icons/icon_menu.svg';
 import shopping_card from '@icons/icon_shopping_cart.svg';
 import logo from '@logos/logo_yard_sale.svg';
 import AppContext from '@context/AppContext';
 import MyOrder from '@containers/MyOrder';
+import styles from '@styles/Header.module.scss';
 
 const Header = () => {
   const [toggle, setToggle] = useState(false);
@@ -17,7 +17,7 @@ const Header = () => {
   };
 
   return (
-    <nav>
+    <nav className={styles.Nav}>
       <img src={menu} alt="menu" className="menu" />
       <div className="navbar-left">
         <img src={logo} alt="logo" className="nav-logo" />

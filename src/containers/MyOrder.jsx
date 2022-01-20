@@ -1,19 +1,18 @@
-import React, { useContext } from "react";
-import OrderItem from "../components/OrderItem";
-import AppContext from "../context/AppContext";
-import "../styles/MyOrder.scss";
+import React, { useContext } from 'react';
+import OrderItem from '@components/OrderItem';
+import AppContext from '@context/AppContext';
+import styles from '@styles/MyOrder.module.scss';
 
 const MyOrder = () => {
   const { state } = useContext(AppContext);
   const SumTotal = () => {
-    const reducer = (accumulator, currentValue) =>
-      accumulator + currentValue.price;
+    const reducer = (accumulator, currentValue) => accumulator + currentValue.price;
     const sum = state.cart.reduce(reducer, 0);
     return sum;
   };
 
   return (
-    <aside className="MyOrder">
+    <aside className={styles.MyOrder}>
       <div className="title-container">
         <img src="./icons/flechita.svg" alt="arrow" />
         <p className="title">My order</p>
