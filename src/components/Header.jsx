@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
 import Menu from '@components/Menu';
+import MyOrder from '@containers/MyOrder';
 import menu from '@icons/icon_menu.svg';
-import shoppingCart from '@icons/icon_shopping_cart.svg';
 import logo from '@logos/logo_yard_sale.svg';
 import AppContext from '@context/AppContext';
-import MyOrder from '@containers/MyOrder';
+import shoppingCart from '@icons/icon_shopping_cart.svg';
 import styles from '@styles/Header.module.scss';
 
 const Header = () => {
@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <>
       <nav className={styles.Nav}>
-        <Image src={menu.src} alt="menu" className={styles.menu} />
+        <img src={menu.src} alt="menu" className={styles.menu} />
         <div className={styles['navbar-left']}>
           <Link href="/" passHref>
             <Image src={logo} alt="logo" className={styles['nav-logo']} />
@@ -44,7 +44,7 @@ const Header = () => {
         <div className={styles['navbar-right']}>
           <ul>
             <li className={(styles['more-clickable-area'], styles['navbar-email'], styles.pointer)} onClick={() => toggleMenu()} aria-hidden="true">
-              foodhyshop@example.com
+              platzi@example.com
             </li>
             <li className={styles['navbar-shopping-cart']} onClick={() => toggleOrder()} aria-hidden="true">
               <Image className={(styles['more-clickable-area'], styles.pointer)} src={shoppingCart} alt="shopping cart" />
