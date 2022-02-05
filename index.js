@@ -1,6 +1,11 @@
 "use strict";
 
 const { graphql, buildSchema } = require("graphql");
+const express = require("express");
+const { graphqlHTTP } = require("express-graphql");
+
+const app = express();
+const port = process.env.PORT || 3005;
 
 // define main schema
 const schema = buildSchema(`
@@ -14,7 +19,7 @@ const schema = buildSchema(`
   }
 `);
 
-// config resolvers
+// config resolvers that it return the query data
 const resolvers = {
   hello: () => {
     return "Hello world";
@@ -36,7 +41,21 @@ const resolvers = {
   },
 };
 
-// execute query hello
-graphql(schema, "{ id }", resolvers).then((data) => {
-  console.log(data);
+/**
+ * middleware to use graphqlHTTP, if we don't used the doc don't works
+ */
+app.use(
+  "/api",
+  graphqlHTTP({
+    schema: schema,
+    rootValue: resolvers,
+    graphiql: true,
+  })
+);
+
+/**
+ * init express server
+ */
+app.listen(port, () => {
+  console.log(`App listening on port http://localhost:${port}/api`);
 });
