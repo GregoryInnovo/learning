@@ -1,7 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
 // import custom hook
 import { useAuth } from '@hooks/useAuth';
+// import components
+import Toast from '@components/Toast';
+import Spinner from '@components/Spinner';
 
 export default function LoginPage() {
   const emailRef = useRef(null);
@@ -9,9 +12,16 @@ export default function LoginPage() {
   // In this case auth return the user and a function to sign in
   const auth = useAuth();
 
+  // state of spinner
+  const [loading, setLoading] = useState(false);
+  // state of error
+  const [error, setError] = useState(null);
+
   const submitHandler = (e) => {
     // prevent the form from submitting
     e.preventDefault();
+    setLoading(true);
+    setError(false);
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
@@ -20,8 +30,11 @@ export default function LoginPage() {
       .signIn(email, password)
       .then(() => {
         console.log('signed in');
+        setLoading(false);
       })
       .catch((err) => {
+        setError(true);
+        setLoading(false);
         console.log('Error signing: ', err);
       });
   };
@@ -96,6 +109,8 @@ export default function LoginPage() {
               </button>
             </div>
           </form>
+          {loading && <Spinner />}
+          {error && <Toast type="error" title="Error" message="Your email or password is incorrect, try again" time="now" />}
         </div>
       </div>
     </>

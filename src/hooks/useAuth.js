@@ -25,8 +25,14 @@ function useProviderAuth() {
       },
     };
 
-    const { data: access_token } = await Axios.post(endpoints.auth.login, { email, password }, options);
-    console.log(access_token);
+    const {
+      data: { access_token },
+    } = await Axios.post(endpoints.auth.login, { email, password }, options);
+
+    // The web save this cookie session, and determinate if the user is logged in
+    if (access_token) {
+      Cookie.set('token', access_token, { expires: 5 });
+    }
   };
 
   return {
