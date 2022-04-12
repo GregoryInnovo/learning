@@ -1,9 +1,13 @@
 import { useRef } from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
+// import custom hook
+import { useAuth } from '@hooks/useAuth';
 
 export default function LoginPage() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  // In this case auth return the user and a function to sign in
+  const auth = useAuth();
 
   const submitHandler = (e) => {
     // prevent the form from submitting
@@ -11,8 +15,15 @@ export default function LoginPage() {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    // do something with the data
-    console.log(email, password);
+    // do something with the data, in this case the user signIn
+    auth
+      .signIn(email, password)
+      .then(() => {
+        console.log('signed in');
+      })
+      .catch((err) => {
+        console.log('Error signing: ', err);
+      });
   };
 
   return (

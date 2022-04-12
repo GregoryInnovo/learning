@@ -8,17 +8,21 @@ const endpoints = {
     profile: `${API}/api/${VERSION}/auth/profile`,
   },
   products: {
-    getAllProducts: `${API}/api/${VERSION}/products`,
-    getProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
+    getProduct: (id) => `${API}/api/${VERSION}/products/${id}/`,
+    getProducts: (limit, offset) => `${API}/api/${VERSION}/products?limit=${limit}&offset=${offset}`,
+    addProducts: `${API}/api/${VERSION}/products`,
+    updateProducts: (id) => `${API}/api/${VERSION}/products/${id}/`,
+    deleteProducts: (id) => `${API}/api/${VERSION}/products/${id}/`,
   },
   users: {
     getAllUsers: `${API}/api/${VERSION}/users`,
     userIsAvailable: `${API}/api/${VERSION}/users/is-available`,
   },
   categories: {
-    getAllCategories: `${API}/api/${VERSION}/categories`,
-    getCategory: (id) => `${API}/api/${VERSION}/categories/${id}`,
-    getCategoryWithProduct: (id) => `${API}/api/${VERSION}/categories/${id}/products`,
+    getCategoriesList: `${API}/api/${VERSION}/categories/`,
+    addCategory: `${API}/api/${VERSION}/categories/`,
+    getCategoryItems: (id) => `${API}/api/${VERSION}/categories/${id}/products/`,
+    updateCategory: (id) => `${API}/api/${VERSION}/categories/${id}/`,
   },
   files: {
     upload: `${API}/api/${VERSION}/files/upload`,
