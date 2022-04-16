@@ -31,7 +31,13 @@ function useProviderAuth() {
 
     // The web save this cookie session, and determinate if the user is logged in
     if (access_token) {
-      Cookie.set('token', access_token, { expires: 5 });
+      const token = access_token;
+      Cookie.set('token', token, { expires: 5 });
+
+      // send to axios define the value of the token
+      Axios.defaults.headers.Authorization = `Bearer ${token}`;
+      const { data: user } = await Axios.get(endpoints.auth.profile);
+      console.log(user);
     }
   };
 
