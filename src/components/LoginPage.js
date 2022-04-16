@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import { LockClosedIcon } from '@heroicons/react/solid';
 // import custom hook
 import { useAuth } from '@hooks/useAuth';
@@ -11,6 +12,7 @@ export default function LoginPage() {
   const passwordRef = useRef(null);
   // In this case auth return the user and a function to sign in
   const auth = useAuth();
+  const router = useRouter();
 
   // state of spinner
   const [loading, setLoading] = useState(false);
@@ -29,7 +31,8 @@ export default function LoginPage() {
     auth
       .signIn(email, password)
       .then(() => {
-        console.log('signed in');
+        // if the user is logged in, redirect to the dashboard page
+        router.push('/dashboard');
         setLoading(false);
       })
       .catch((err) => {
