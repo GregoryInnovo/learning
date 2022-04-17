@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import useFetch from '@hooks/useFetch';
 import endpoints from '@services/api';
-
+import Chart from '@common/Chart';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 
@@ -13,27 +13,33 @@ const peopleInfo = [
   { id: 5, name: 'Katelyn Rohan' },
 ];
 
-const people = [
-  {
-    name: 'Jane Cooper',
-    title: 'Regional Paradigm Technician',
-    department: 'Optimization',
-    role: 'Admin',
-    email: 'jane.cooper@example.com',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-  },
-];
-
-const PRODUCT_LIMIT = 15;
-const PRODUCT_OFFSET = 15;
+const PRODUCT_LIMIT = 60;
+const PRODUCT_OFFSET = 60;
 
 export default function Dashboard() {
   const products = useFetch(endpoints.products.getProducts(PRODUCT_LIMIT, PRODUCT_OFFSET));
-  console.log(products);
+
+  const categoryNames = products?.map((product) => product.category);
+  const categoryCount = categoryNames?.map((category) => category.name);
+
+  // return the countOccurrences if the element is repeatable
+  const countOccurrences = (arr) => arr.reduce((prev, curr) => ((prev[curr] = ++prev[curr] || 1), prev), {});
+
+  const data = {
+    datasets: [
+      {
+        label: 'Categories',
+        data: countOccurrences(categoryCount),
+        borderWidth: 2,
+        backgroundColor: ['#ffbb11', '#c0c0c0', '#50AF95', '#f3ba2f', '#2a71d0'],
+      },
+    ],
+  };
 
   const [selected, setSelected] = useState(peopleInfo[0]);
   return (
     <>
+      <Chart className="mb-8 mt-2" chartData={data} />
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
