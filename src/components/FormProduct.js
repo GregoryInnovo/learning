@@ -1,8 +1,11 @@
 import { useRef } from 'react';
-import { addProduct } from '@services/api/products';
+import { addProduct, updateProduct } from '@services/api/products';
+import { useRouter } from 'next/router';
 
 export default function FormProduct({ setOpen, setAlert, product }) {
   const formRef = useRef(null);
+  const router = useRouter();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // instance of form values
@@ -14,24 +17,31 @@ export default function FormProduct({ setOpen, setAlert, product }) {
       categoryId: parseInt(formData.get('category')),
       images: [formData.get('images').name],
     };
-    addProduct(data)
-      .then(() => {
-        setAlert({
-          active: true,
-          message: 'Product added successfully',
-          type: 'success',
-          autoClose: false,
-        });
-        setOpen(false);
-      })
-      .catch((error) => {
-        setAlert({
-          active: true,
-          message: error.message,
-          type: 'error',
-          autoClose: false,
-        });
+
+    if (product) {
+      updateProduct(product.id, data).then((response) => {
+        router.push('/dashboard/products');
       });
+    } else {
+      addProduct(data)
+        .then(() => {
+          setAlert({
+            active: true,
+            message: 'Product added successfully',
+            type: 'success',
+            autoClose: false,
+          });
+          setOpen(false);
+        })
+        .catch((error) => {
+          setAlert({
+            active: true,
+            message: error.message,
+            type: 'error',
+            autoClose: false,
+          });
+        });
+    }
   };
 
   return (
