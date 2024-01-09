@@ -1,5 +1,5 @@
-# learning
+# learning tests web
 
-- main: show all the examples
+## Capture screen
 
-- mongo-api: Example API RESTFUL with mongodb
+- Access to ./captureScreen and open the index.html
